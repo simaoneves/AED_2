@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class FrequencyQueue<E> implements Cloneable {
 
 	/**
-	 * The ArrayList that stores the heap.
+	 *The ArrayList that stores the heap.
 	 * 
 	 * @invariant forall e:entries | e.frequency > 0
 	 */
