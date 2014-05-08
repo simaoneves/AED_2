@@ -94,9 +94,35 @@ public class FrequencyQueue<E> implements Cloneable {
 	 *            The item
 	 */
 	public void sub(E item) {
-		// TODO Auto-generated method stub
+		int pos = map.get(item);
+		int freq = this.entries.get(pos).frequency;
+		if(freq == 1){
+			this.entries.remove(pos);
+			reheap();
+		}else{
+			this.entries.get(pos).frequency--;
+		}	
 	}
 
+	/**
+	 * reheap
+	 */
+	private void reheap(){
+		
+	}
+	
+	/**
+	 * Comparator
+	 */
+	private int compare(Entry<E> first, Entry<E> second){
+		if(first.frequency == second.frequency)
+			return 0;
+		if(first.frequency > second.frequency)
+			return 1;
+		else
+			return -1;
+	}
+	
 	/**
 	 * A bag with the elements in the queue. The frequency of an item in the bag
 	 * is the same than in the queue. IMPORTANT: this method implements

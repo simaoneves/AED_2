@@ -17,4 +17,17 @@ Projecto AED 2
 
 
 **nossos**
+- compare(Obj 1, Obj 2) (João)
+- reheap() (João V Simão)
+
+------------------------------------------------------------------
+
+**Métodos Feitos**
+
+**Enunciado**
+
+- sub(E item) (João) -> Iniciado c base em reheap
+
+**Nossos**
+
 - comparator(Obj 1, Obj 2) (João)
