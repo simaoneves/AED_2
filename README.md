@@ -28,6 +28,8 @@ Projecto AED 2
 **Enunciado**
 - maxChild(int parent) -> recorre a compare
 - sub(E item) (João) -> Iniciado c base em reheap
+- add(E item) (João) se adiciona se ainda nao existir, testado.
+- delMax() (João)
 
 **Nossos**
 - compare(Entry<E> first, Entry<E> second) (João)
