@@ -14,6 +14,7 @@ Projecto AED 2
 - sink (Simão)
 - swim -> eleva o maximo que puder no amontoado (João)
 - maxChild -> melhorar
+- delMax() (João V Simão)
 
 
 **nossos**
