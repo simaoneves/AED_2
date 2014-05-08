@@ -12,6 +12,7 @@ import java.util.HashMap;
  */
 public class FrequencyQueue<E> implements Cloneable {
 
+	
 	/**
 	 * The ArrayList that stores the heap.
 	 * 
@@ -233,12 +234,12 @@ public class FrequencyQueue<E> implements Cloneable {
 	 */
 	private void delMax() {
 		int last = this.entries.size() - 1;
-		Entry<E> elem = this.entries.get(last);
+		Entry<E> entry = this.entries.get(last);
 		this.entries.remove(last);
-		this.entries.set(0, elem);
-		// re-hash
-		// faz sink do elem de acordo com a prioridade
-		sink(0);
+		if(entries.size() > 1){
+			this.entries.set(0, entry);
+			sink(0);
+		}
 	}
 
 	/**
