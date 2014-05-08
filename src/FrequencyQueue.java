@@ -12,6 +12,16 @@ import java.util.HashMap;
  */
 public class FrequencyQueue<E> implements Cloneable {
 
+	public static void main(String[]args){
+		FrequencyQueue<String> queue = new FrequencyQueue<String>();
+		queue.add("abc");
+		queue.add("abc");
+		queue.add("abc");
+		queue.add("aba");
+		queue.add("vfbbd");
+		System.out.println(queue.map.get("abc"));
+		System.out.print(queue);
+	}
 	
 	/**
 	 * The ArrayList that stores the heap.
@@ -151,8 +161,14 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * @param node
 	 *            The changed node.
 	 */
-	private void sink(int node) {
-		// TODO Auto-generated method stub
+	private void sink(int parent) {
+		if(!isLeaf(parent)){
+			while(compare(entries.get(parent), entries.get(maxChild(parent))) < 0){
+				int maxChild = maxChild(parent);
+				swap(parent, maxChild);
+				parent = maxChild;
+			}
+		}
 	}
 
 	/**
@@ -162,8 +178,14 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * @param node
 	 *            The changed node.
 	 */
-	private int swim(int node) {
-		return 0;
+	private int swim(int child) {
+		int parent = (child-1)/2;
+		while(compare(entries.get(child), entries.get(parent)) > 0){
+			swap(parent, child);
+			child = parent;
+			parent = (child-1)/2;
+		}
+		return child;
 	}
 
 	/**
@@ -234,10 +256,10 @@ public class FrequencyQueue<E> implements Cloneable {
 	 */
 	private void delMax() {
 		int last = this.entries.size() - 1;
-		Entry<E> entry = this.entries.get(last);
-		this.entries.remove(last);
+		Entry<E> min = this.entries.get(last);
+		this.entries.remove(0);
 		if(entries.size() > 1){
-			this.entries.set(0, entry);
+			this.entries.set(0, min);
 			sink(0);
 		}
 	}

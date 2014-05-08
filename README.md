@@ -30,6 +30,8 @@ Projecto AED 2
 - sub(E item) (João) -> Iniciado c base em reheap
 - add(E item) (João) se adiciona se ainda nao existir, testado.
 - delMax() (João)
+- swim(int n) -> iniciado
+- sink(int n) -> (iniciei porque precisa para testar o delMax())
 
 **Nossos**
 - compare(Entry<E> first, Entry<E> second) (João)
