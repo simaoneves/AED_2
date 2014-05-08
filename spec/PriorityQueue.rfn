@@ -1,0 +1,37 @@
+refinement<E>
+
+   Element is E 
+
+   Bag[Element] is  Bag<E> {
+        makeBag: --> Bag[Element]                      
+        					is Bag();
+        add: Bag[Element] e:Element --> Bag[Element]    
+        					is void add(E e);
+        contains: Bag[Element] e:Element                
+        					is boolean contains(E e);
+        remove: Bag[Element] e:Element --> Bag[Element] 
+        					is void remove(E e);
+        howMany: Bag[Element] e:Element --> int         
+        					is int howMany(E e);
+        isEmptyBag: Bag[Element]                           
+        					is boolean isEmpty();
+    }
+    
+    FreqQueue[Element] is FrequencyQueue<E> {
+        makeFQ: --> FreqQueue[Element] 
+        					is FrequencyQueue();
+        addFQ: FreqQueue[Element] e:Element --> FreqQueue[Element] 
+        					is void add (E e);
+        sub: FreqQueue[Element] e:Element --> FreqQueue[Element] 
+        					is void sub (E e);
+        isEmpty: FreqQueue[Element] 
+        					is boolean isEmpty ();
+        topElement: FreqQueue[Element] -->? Element 
+        					is E topItem ();
+        topFreq: FreqQueue[Element] -->? int 
+        					is int topFreq ();
+        //auxiliary operation
+        els: FreqQueue[Element] --> Bag[Element] 
+        					is Bag<E> elements ();
+    }
+end refinement

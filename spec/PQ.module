@@ -1,0 +1,7 @@
+module
+	core
+		FreqQueue
+		Bag
+	parameter
+		Element
+end module
