@@ -74,11 +74,10 @@ public class FrequencyQueue<E> implements Cloneable {
 	 *            The item.
 	 */
 	public void add(E item) {
-
 		if(this.bag.contains(item)){
 			Entry<E> entry = this.entries.get(this.map.get(item));
 			entry.frequency++;
-			swim(this.map.get(item));
+			reMap(item, swim(this.map.get(item));
 		}else{
 			bag.add(item);
 			this.entries.add(new Entry<E>(item, 1));
@@ -112,8 +111,9 @@ public class FrequencyQueue<E> implements Cloneable {
 	/**
 	 * Is a given node a leaf in the heap?
 	 */
-	private boolean isLeaf(int node) {
-		// TODO Auto-generated method stub
+	private boolean isLeaf(int parent) {
+		if((parent*2)+1 > this.entries.size()-1)
+			return true;
 		return false;
 	}
 
@@ -138,6 +138,13 @@ public class FrequencyQueue<E> implements Cloneable {
 		return 0;
 	}
 
+	/**
+	 * actualiza map
+	 */
+	private void reMap(E item, int key){
+		map.replace(item, key);
+	}
+	
 	/**
 	 * The index of the larger child of a node
 	 * 
