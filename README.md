@@ -30,3 +30,4 @@ Projecto AED 2
 
 **Nossos**
 - compare(Entry<E> first, Entry<E> second) (João)
+- reheap() -> iniciado. recorre ao swim (João)

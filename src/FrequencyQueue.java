@@ -107,7 +107,9 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * reheap
 	 */
 	private void reheap() {
-
+		for(int i = entries.size()-1; i>0; i--){
+			swim(i);
+		}
 	}
 
 	/**
