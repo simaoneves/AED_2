@@ -12,17 +12,20 @@ import java.util.HashMap;
  */
 public class FrequencyQueue<E> implements Cloneable {
 
-	public static void main(String[]args){
+	public static void main(String[] args) {
 		FrequencyQueue<String> queue = new FrequencyQueue<String>();
-		queue.add("abc");
-		queue.add("abc");
-		queue.add("abc");
-		queue.add("aba");
-		queue.add("vfbbd");
-		System.out.println(queue.map.get("abc"));
+		queue.add("a");
+		queue.add("b");
+		queue.add("b");
+		queue.add("b");
+		queue.add("a");
+		queue.add("a");
+		queue.add("a");
+		queue.add("c");
+		queue.add("d");
 		System.out.print(queue);
 	}
-	
+
 	/**
 	 * The ArrayList that stores the heap.
 	 * 
@@ -85,17 +88,18 @@ public class FrequencyQueue<E> implements Cloneable {
 	 *            The item.
 	 */
 	public void add(E item) {
-		if(this.bag.contains(item)){
+		if (this.bag.contains(item)) {
 			Entry<E> entry = this.entries.get(this.map.get(item));
 			entry.frequency++;
 			reMap(item, swim(this.map.get(item)));
-		}else{
+		} else {
 			bag.add(item);
 			this.entries.add(new Entry<E>(item, 1));
-			this.map.put(item, swim(entries.size()-1));
+			this.map.put(item, swim(entries.size() - 1));
 		}
-		
+
 	}
+
 	/**
 	 * Decrease by one the frequency of item in the queue. If the frequency of
 	 * item becomes zero, remove it from the queue
@@ -111,6 +115,8 @@ public class FrequencyQueue<E> implements Cloneable {
 			reheap();
 		} else {
 			this.entries.get(pos).frequency--;
+			if(hasToSink(pos))
+				sink(pos);
 		}
 	}
 
@@ -118,7 +124,7 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * reheap
 	 */
 	private void reheap() {
-		for(int i = entries.size()-1; i>0; i--){
+		for (int i = entries.size() - 1; i > 0; i--) {
 			swim(i);
 		}
 	}
@@ -150,7 +156,7 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * Is a given node a leaf in the heap?
 	 */
 	private boolean isLeaf(int parent) {
-		if ((parent * 2) + 1 > this.entries.size() - 1)
+		if ((parent * 2) + 1 >= this.entries.size() - 1)
 			return true;
 		return false;
 	}
@@ -162,8 +168,9 @@ public class FrequencyQueue<E> implements Cloneable {
 	 *            The changed node.
 	 */
 	private void sink(int parent) {
-		if(!isLeaf(parent)){
-			while(compare(entries.get(parent), entries.get(maxChild(parent))) < 0){
+		if (!isLeaf(parent)) {
+			while (compare(entries.get(parent), entries.get(maxChild(parent))) < 0) {
+				System.out.print("Swapping"+"\n");
 				int maxChild = maxChild(parent);
 				swap(parent, maxChild);
 				parent = maxChild;
@@ -179,11 +186,11 @@ public class FrequencyQueue<E> implements Cloneable {
 	 *            The changed node.
 	 */
 	private int swim(int child) {
-		int parent = (child-1)/2;
-		while(compare(entries.get(child), entries.get(parent)) > 0){
+		int parent = (child - 1) / 2;
+		while (compare(entries.get(child), entries.get(parent)) > 0) {
 			swap(parent, child);
 			child = parent;
-			parent = (child-1)/2;
+			parent = (child - 1) / 2;
 		}
 		return child;
 	}
@@ -204,26 +211,26 @@ public class FrequencyQueue<E> implements Cloneable {
 	private int maxChild(int parent) {
 		// verifica se nao eh folha
 		if (!isLeaf(parent)) {
-			
+
 			// parent com 2 filhos
 			if ((parent * 2) + 2 <= this.entries.size() - 1) {
-				
+
 				// se o max eh o da esquerda ou se tiverem a mesma frequency
-				if (compare(entries.get((parent * 2)+ 1),
+				if (compare(entries.get((parent * 2) + 1),
 						entries.get((parent * 2) + 2)) >= 0)
-					//retorna filho da esquerda
+					// retorna filho da esquerda
 					return (parent * 2) + 1;
-				
-				//caso contrario retorna filho da direita
+
+				// caso contrario retorna filho da direita
 				return (parent * 2) + 2;
-			} 
+			}
 			// parent so tem um filho
 			else {
 				// retorna filho da esquerda
 				return (parent * 2) + 1;
 			}
 		}
-		//se nao tem filhos e o método eh chamado
+		// se nao tem filhos e o método eh chamado
 		return -1;
 	}
 
@@ -237,11 +244,32 @@ public class FrequencyQueue<E> implements Cloneable {
 	 *            The other position
 	 */
 	private void swap(int child, int parent) {
+
 		Entry<E> aux = this.entries.get(parent);
-		this.entries.set(parent, this.entries.get(child));
-		this.entries.set(child, aux);
-		// toHash
+		Entry<E> auxChild = this.entries.get(child);
+		// entries swap
+		entries.set(parent, auxChild);
+		entries.set(child, aux);
+		// map swap
+		map.replace(aux.item, child);
+		map.replace(auxChild.item, parent);
 	}
+
+	/**
+	 * Verifica se a entry deve sinkar
+	 * @param parent
+	 * @return
+	 */
+	private boolean hasToSink(int parent) {
+		//verifica se nao eh folha
+		if (!isLeaf(parent))
+			//se deve sinkar
+			if (compare(entries.get(parent), entries.get(maxChild(parent))) < 0)
+				return true;
+		//se nao deve sinkar
+		return false;
+	}
+
 
 	/**
 	 * @return The entry with the highest frequency in the heap
@@ -258,7 +286,7 @@ public class FrequencyQueue<E> implements Cloneable {
 		int last = this.entries.size() - 1;
 		Entry<E> min = this.entries.get(last);
 		this.entries.remove(0);
-		if(entries.size() > 1){
+		if (entries.size() > 1) {
 			this.entries.set(0, min);
 			sink(0);
 		}

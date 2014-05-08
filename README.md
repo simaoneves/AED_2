@@ -20,6 +20,7 @@ Projecto AED 2
 **nossos**
 - compare(Entry<E> first, Entry<E> second) (João)
 - reheap() (João V Simão)
+- swap(int child, int parent) (João)
 
 ------------------------------------------------------------------
 
@@ -31,8 +32,9 @@ Projecto AED 2
 - add(E item) (João) se adiciona se ainda nao existir, testado.
 - delMax() (João)
 - swim(int n) -> iniciado
-- sink(int n) -> (iniciei porque precisa para testar o delMax())
+- sink(int n) -> (iniciei porque precisa para testar o delMax()) -> erro no sink
 
 **Nossos**
 - compare(Entry<E> first, Entry<E> second) (João)
 - reheap() -> iniciado. recorre ao swim (João)
+- swap(int child, int parent) -> feito, a actualizar em map e em entries
