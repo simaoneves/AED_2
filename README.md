@@ -17,7 +17,7 @@ Projecto AED 2
 
 
 **nossos**
-- compare(Obj 1, Obj 2) (João)
+- compare(Entry<E> first, Entry<E> second) (João)
 - reheap() (João V Simão)
 
 ------------------------------------------------------------------
@@ -25,9 +25,8 @@ Projecto AED 2
 **Métodos Feitos**
 
 **Enunciado**
-
+- maxChild(int parent) -> recorre a compare
 - sub(E item) (João) -> Iniciado c base em reheap
 
 **Nossos**
-
-- comparator(Obj 1, Obj 2) (João)
+- compare(Entry<E> first, Entry<E> second) (João)
