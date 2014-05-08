@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class Bag<E> implements Cloneable {
 
-	/**
+	/** OLA TESTE
 	 * Our bag.
 	 */
 	private ArrayList<E> bag;
