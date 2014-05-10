@@ -38,3 +38,6 @@ Projecto AED 2
 - compare(Entry<E> first, Entry<E> second) (João)
 - reheap() -> iniciado. recorre ao swim (João)
 - swap(int child, int parent) -> feito, a actualizar em map e em entries
+
+**NOTA**
+O map tem que ser reestructurado no sub e no delMax()

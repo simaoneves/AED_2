@@ -23,6 +23,8 @@ public class FrequencyQueue<E> implements Cloneable {
 		queue.add("a");
 		queue.add("c");
 		queue.add("d");
+		System.out.println(queue);
+		queue.delMax();
 		System.out.print(queue);
 	}
 
@@ -115,7 +117,7 @@ public class FrequencyQueue<E> implements Cloneable {
 			reheap();
 		} else {
 			this.entries.get(pos).frequency--;
-			if(hasToSink(pos))
+			if (hasToSink(pos))
 				sink(pos);
 		}
 	}
@@ -148,9 +150,9 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * clients or internally by other methods!
 	 */
 	public Bag<E> elements() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.bag;
 	}
+
 
 	/**
 	 * Is a given node a leaf in the heap?
@@ -168,13 +170,13 @@ public class FrequencyQueue<E> implements Cloneable {
 	 *            The changed node.
 	 */
 	private void sink(int parent) {
-		if (!isLeaf(parent)) {
-			while (compare(entries.get(parent), entries.get(maxChild(parent))) < 0) {
-				System.out.print("Swapping"+"\n");
-				int maxChild = maxChild(parent);
-				swap(parent, maxChild);
-				parent = maxChild;
-			}
+		int maxChild = maxChild(parent);
+		while(compare(entries.get(parent), entries.get(maxChild)) < 0){
+			swap(parent, maxChild);
+			parent = maxChild;
+			maxChild = maxChild(parent);
+			if(isLeaf(parent))
+				break;
 		}
 	}
 
@@ -257,19 +259,19 @@ public class FrequencyQueue<E> implements Cloneable {
 
 	/**
 	 * Verifica se a entry deve sinkar
+	 * 
 	 * @param parent
 	 * @return
 	 */
 	private boolean hasToSink(int parent) {
-		//verifica se nao eh folha
+		// verifica se nao eh folha
 		if (!isLeaf(parent))
-			//se deve sinkar
+			// se deve sinkar
 			if (compare(entries.get(parent), entries.get(maxChild(parent))) < 0)
 				return true;
-		//se nao deve sinkar
+		// se nao deve sinkar
 		return false;
 	}
-
 
 	/**
 	 * @return The entry with the highest frequency in the heap
@@ -283,12 +285,17 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * Removes from the frequency queue the max entry requires !isEmpty()
 	 */
 	private void delMax() {
-		int last = this.entries.size() - 1;
-		Entry<E> min = this.entries.get(last);
-		this.entries.remove(0);
-		if (entries.size() > 1) {
+		if (this.entries.size() > 1) {
+			E curMax = this.entries.get(0).item;
+			map.remove(curMax);
+			int last = this.entries.size() - 1;
+			Entry<E> min = this.entries.get(last);
 			this.entries.set(0, min);
-			sink(0);
+			this.entries.remove(last);
+			if(!isLeaf(0))
+				sink(0);
+		} else {
+			this.entries.remove(0);
 		}
 	}
 
