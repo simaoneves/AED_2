@@ -201,6 +201,7 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * actualiza map
 	 */
 	private void reMap(E item, int key) {
+		// ola
 //		map.replace(item, key);
 	}
 
