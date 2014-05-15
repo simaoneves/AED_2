@@ -201,7 +201,7 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * actualiza map
 	 */
 	private void reMap(E item, int key) {
-		map.replace(item, key);
+//		map.replace(item, key);
 	}
 
 	/**
@@ -253,8 +253,8 @@ public class FrequencyQueue<E> implements Cloneable {
 		entries.set(parent, auxChild);
 		entries.set(child, aux);
 		// map swap
-		map.replace(aux.item, child);
-		map.replace(auxChild.item, parent);
+//		map.replace(aux.item, child);
+//		map.replace(auxChild.item, parent);
 	}
 
 	/**
