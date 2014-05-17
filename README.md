@@ -7,8 +7,6 @@ Projecto AED 2
 -------------
 
 **Por Fazer**
-- topFreq -> maior frequencia em amontoado (Simão)
-- topItem -> item com maior frquencia no amontoado (Simão)
 - sub -> decrementa uma freqüência de certo item (João)
 - elements -> devolve um bag com os elementos na queue (Simão)
 - sink (Simão)
@@ -27,6 +25,8 @@ Projecto AED 2
 **Métodos Feitos**
 
 **Enunciado**
+- topFreq -> maior frequencia em amontoado (Simão)
+- topItem -> item com maior frquencia no amontoado (Simão)
 - maxChild(int parent) -> recorre a compare
 - sub(E item) (João) -> Iniciado c base em reheap
 - add(E item) (João) se adiciona se ainda nao existir, testado.

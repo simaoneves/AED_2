@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 
 /**
@@ -23,9 +22,10 @@ public class FrequencyQueue<E> implements Cloneable {
 		queue.add("a");
 		queue.add("c");
 		queue.add("d");
+		queue.add("e");
 		System.out.println(queue);
-		queue.delMax();
-		System.out.print(queue);
+//		queue.delMax();
+//		System.out.print(queue);
 	}
 
 	/**
@@ -69,8 +69,7 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * @requires !isEmpty();
 	 */
 	public int topFreq() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.max().frequency;
 	}
 
 	/**
@@ -78,8 +77,7 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * @requires !isEmpty()
 	 */
 	public E topItem() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.max().item;
 	}
 
 	/**
@@ -201,8 +199,7 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * actualiza map
 	 */
 	private void reMap(E item, int key) {
-		// ola
-//		map.replace(item, key);
+		map.put(item, key);
 	}
 
 	/**
@@ -254,8 +251,8 @@ public class FrequencyQueue<E> implements Cloneable {
 		entries.set(parent, auxChild);
 		entries.set(child, aux);
 		// map swap
-//		map.replace(aux.item, child);
-//		map.replace(auxChild.item, parent);
+		map.put(aux.item, child);
+		map.put(auxChild.item, parent);
 	}
 
 	/**
