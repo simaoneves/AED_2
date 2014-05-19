@@ -8,17 +8,14 @@ Projecto AED 2
 
 **Por Fazer**
 - sub -> decrementa uma freqüência de certo item (João)
-- elements -> devolve um bag com os elementos na queue (Simão)
-- sink (Simão)
+- els -> devolve um bag com os elementos na queue (Simão) Acho que devemos ter so um metodo els a calcular o Bag, e nao termos o atributo Bag em que vamos adicionando, o que achas?
+- sink (Simão) Nao mexi muito aqui, o que fizeste acho que esta certo
 - swim -> eleva o maximo que puder no amontoado (João)
-- maxChild -> melhorar
 - delMax() (João V Simão)
 
 
 **nossos**
-- compare(Entry<E> first, Entry<E> second) (João)
 - reheap() (João V Simão)
-- swap(int child, int parent) (João)
 
 ------------------------------------------------------------------
 
@@ -35,9 +32,10 @@ Projecto AED 2
 - sink(int n) -> (iniciei porque precisa para testar o delMax()) -> erro no sink
 
 **Nossos**
-- compare(Entry<E> first, Entry<E> second) (João)
+- compare(int firstIndex, int secondIndex) (João) - agora compara os indexes, o codigo fica mais legivel
 - reheap() -> iniciado. recorre ao swim (João)
 - swap(int child, int parent) -> feito, a actualizar em map e em entries
 
 **NOTA**
-O map tem que ser reestructurado no sub e no delMax()
+- Alterei o toString da frequencyqueue para perceber melhor o que se passa, depois e preciso por como deve ser
+- Melhorar o delMax (nao precisa de se reestructurar o mapa porque e so para copias [see toString])

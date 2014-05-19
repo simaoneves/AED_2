@@ -37,16 +37,18 @@ public class FrequencyQueueRandomTest {
 
 	public void run () {
 		for (int i = 0; i < howManyTests; i++) {
-			switch (rand.nextInt(5)) {
+			switch (rand.nextInt(6)) {
 			case 0:
 				String s = newString();
 				System.out.print ("add "+ s+ " ");
 				queue.add(s);
 				break;
+				
 			case 1:
 				if (!queue.isEmpty()) 
 					System.out.print ("topFrequency "+queue.topFreq()+"  ");
 				break;
+				
 			case 2:
 				if (!queue.isEmpty()) 
 					System.out.print ("topItem "+ queue.topItem()+"  ");
@@ -59,8 +61,13 @@ public class FrequencyQueueRandomTest {
 					queue.sub(s);
 				}
 				break;
+			
 			case 4:
 				System.out.print ("is empty? "+ queue.isEmpty() + " ");
+				break;
+			
+			case 5:
+				System.out.print ("els "+ queue.els() + " ");
 				break;
 			}
 			System.out.println(queue);

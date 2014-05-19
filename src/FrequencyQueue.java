@@ -15,17 +15,14 @@ public class FrequencyQueue<E> implements Cloneable {
 		FrequencyQueue<String> queue = new FrequencyQueue<String>();
 		queue.add("a");
 		queue.add("b");
-		queue.add("b");
-		queue.add("b");
-		queue.add("a");
-		queue.add("a");
-		queue.add("a");
 		queue.add("c");
 		queue.add("d");
-		queue.add("e");
+		
+		queue.add("d");
+		
+		
 		System.out.println(queue);
-//		queue.delMax();
-//		System.out.print(queue);
+		
 	}
 
 	/**
@@ -88,16 +85,16 @@ public class FrequencyQueue<E> implements Cloneable {
 	 *            The item.
 	 */
 	public void add(E item) {
-		if (this.bag.contains(item)) {
+		if (this.map.containsKey(item)) {
 			Entry<E> entry = this.entries.get(this.map.get(item));
 			entry.frequency++;
 			reMap(item, swim(this.map.get(item)));
+			bag.add(item);
 		} else {
 			bag.add(item);
 			this.entries.add(new Entry<E>(item, 1));
 			this.map.put(item, swim(entries.size() - 1));
 		}
-
 	}
 
 	/**
@@ -108,15 +105,17 @@ public class FrequencyQueue<E> implements Cloneable {
 	 *            The item
 	 */
 	public void sub(E item) {
-		int pos = map.get(item);
-		int freq = this.entries.get(pos).frequency;
-		if (freq == 1) {
-			this.entries.remove(pos);
-			reheap();
-		} else {
-			this.entries.get(pos).frequency--;
-			if (hasToSink(pos))
-				sink(pos);
+		if (map.containsKey(item)) {
+			int pos = map.get(item);
+			int freq = this.entries.get(pos).frequency;
+			if (freq == 1) {
+				this.entries.remove(pos);
+				this.map.remove(item);
+			} else {
+				this.entries.get(pos).frequency--;
+				if (hasToSink(pos))
+					sink(pos);
+			}
 		}
 	}
 
@@ -132,13 +131,15 @@ public class FrequencyQueue<E> implements Cloneable {
 	/**
 	 * Comparator
 	 */
-	private int compare(Entry<E> first, Entry<E> second) {
+	private int compare(int firstIndex, int secondIndex) {
+		int result = -1;
+		Entry<E> first = entries.get(firstIndex);
+		Entry<E> second = entries.get(secondIndex);
 		if (first.frequency == second.frequency)
-			return 0;
-		if (first.frequency > second.frequency)
-			return 1;
-		else
-			return -1;
+			result = 0;
+		else if (first.frequency > second.frequency)
+			result = 1;
+		return result;
 	}
 
 	/**
@@ -147,18 +148,15 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * auxiliary operation in specification FrequencyQueue not to be called by
 	 * clients or internally by other methods!
 	 */
-	public Bag<E> elements() {
+	public Bag<E> els() {
 		return this.bag;
 	}
-
 
 	/**
 	 * Is a given node a leaf in the heap?
 	 */
 	private boolean isLeaf(int parent) {
-		if ((parent * 2) + 1 >= this.entries.size() - 1)
-			return true;
-		return false;
+		return ((parent * 2) + 1 > this.entries.size() - 1);
 	}
 
 	/**
@@ -169,14 +167,15 @@ public class FrequencyQueue<E> implements Cloneable {
 	 */
 	private void sink(int parent) {
 		int maxChild = maxChild(parent);
-		while(compare(entries.get(parent), entries.get(maxChild)) < 0){
+		boolean isLeaf = (maxChild == -1);
+		while(compare(parent, maxChild) < 0 && !isLeaf){
 			swap(parent, maxChild);
 			parent = maxChild;
 			maxChild = maxChild(parent);
-			if(isLeaf(parent))
-				break;
+			isLeaf = isLeaf(parent);
 		}
 	}
+
 
 	/**
 	 * Make a changed node to swim in the direction of root inorder to restore
@@ -187,7 +186,7 @@ public class FrequencyQueue<E> implements Cloneable {
 	 */
 	private int swim(int child) {
 		int parent = (child - 1) / 2;
-		while (compare(entries.get(child), entries.get(parent)) > 0) {
+		while (compare(child, parent) > 0) {
 			swap(parent, child);
 			child = parent;
 			parent = (child - 1) / 2;
@@ -209,29 +208,28 @@ public class FrequencyQueue<E> implements Cloneable {
 	 *            The node
 	 */
 	private int maxChild(int parent) {
+		// caso nao tenha filhos, devolve -1
+		int maxChild = -1;
+		
 		// verifica se nao eh folha
 		if (!isLeaf(parent)) {
-
+			int childLeft = (parent * 2) + 1;
+			int childRight = childLeft + 1;
 			// parent com 2 filhos
-			if ((parent * 2) + 2 <= this.entries.size() - 1) {
-
+			if (childRight <= this.entries.size() - 1) {
 				// se o max eh o da esquerda ou se tiverem a mesma frequency
-				if (compare(entries.get((parent * 2) + 1),
-						entries.get((parent * 2) + 2)) >= 0)
-					// retorna filho da esquerda
-					return (parent * 2) + 1;
-
-				// caso contrario retorna filho da direita
-				return (parent * 2) + 2;
+				// retorna o da esquerda, caso contrario retorna o da direita
+				if (compare(childLeft, childRight) >= 0)
+					maxChild = childLeft;
+				else
+					maxChild = childRight;
 			}
-			// parent so tem um filho
+			// parent so tem um filho, retorna o da esquerda
 			else {
-				// retorna filho da esquerda
-				return (parent * 2) + 1;
+				maxChild = childLeft;
 			}
 		}
-		// se nao tem filhos e o método eh chamado
-		return -1;
+		return maxChild;
 	}
 
 	/**
@@ -262,13 +260,11 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * @return
 	 */
 	private boolean hasToSink(int parent) {
+		boolean hasToSink = false;
 		// verifica se nao eh folha
 		if (!isLeaf(parent))
-			// se deve sinkar
-			if (compare(entries.get(parent), entries.get(maxChild(parent))) < 0)
-				return true;
-		// se nao deve sinkar
-		return false;
+			hasToSink = (compare(parent, maxChild(parent)) < 0);
+		return hasToSink;
 	}
 
 	/**
@@ -278,14 +274,19 @@ public class FrequencyQueue<E> implements Cloneable {
 	private Entry<E> max() {
 		return entries.get(0);
 	}
+	
+	// APAGAR NO FIM, so para testes
+	private Entry<E> get(int i) {
+		return entries.get(i);
+	}
 
 	/**
 	 * Removes from the frequency queue the max entry requires !isEmpty()
 	 */
 	private void delMax() {
+		E curMax = this.entries.get(0).item;
+		map.remove(curMax);
 		if (this.entries.size() > 1) {
-			E curMax = this.entries.get(0).item;
-			map.remove(curMax);
 			int last = this.entries.size() - 1;
 			Entry<E> min = this.entries.get(last);
 			this.entries.set(0, min);
@@ -348,12 +349,12 @@ public class FrequencyQueue<E> implements Cloneable {
 	public String toString() {
 		// OPTION1 useful for debugging
 		StringBuilder result = new StringBuilder("");
-		FrequencyQueue<E> copy = this.clone();
-		while (!copy.isEmpty()) {
-			result.append(copy.max() + " ");
-			copy.delMax();
-		}
-		return result.toString() + "  " + map.toString();
+//		FrequencyQueue<E> copy = this.clone();
+//		while (!copy.isEmpty()) {
+//			result.append(copy.max() + " ");
+//			copy.delMax();
+//		}
+		return "FQ: " + entries.toString() + "\nMap: " + map.toString() + "\nBag: " + this.bag.toString();
 		// OPTION2 more succinct
 		// return entries.toString();
 	}
