@@ -39,3 +39,4 @@ Projecto AED 2
 **NOTA**
 - Alterei o toString da frequencyqueue para perceber melhor o que se passa, depois e preciso por como deve ser
 - Melhorar o delMax (nao precisa de se reestructurar o mapa porque e so para copias [see toString])
+- Retirei o Reheap do Sub por agora, se algum no tiver frequencia de 1 entao eh uma folha, entao eh logo removido e nao eh necessario fazer reheap
