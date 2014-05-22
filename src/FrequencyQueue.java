@@ -101,8 +101,14 @@ public class FrequencyQueue<E> implements Cloneable {
 		}
 	}
 
+	/**
+	 * Reorganiza os valores do map de acordo com heap
+	 * @param pos
+	 * 			posicao a partir da qual a reorganizacao
+	 * 			eh feita
+	 */
 	private void reHash(int pos) {
-		
+		//para cada posicao seguinte decrementa no map
 		for(int i = pos; i<entries.size(); i++){
 			System.out.println(entries.get(i).item +" Pos: "+i);
 			map.put(entries.get(i).item, i);
