@@ -20,7 +20,7 @@ public class FrequencyQueueRandomTest {
 
 
 	public static void main(String[] args) {
-		new FrequencyQueueRandomTest( new FrequencyQueue<String>(), 3, 1010, true).run();
+		new FrequencyQueueRandomTest( new FrequencyQueue<String>(), 3, 101110, true).run();
 	}
 
 	private FrequencyQueue<String> queue;

@@ -11,6 +11,8 @@ Projecto AED 2
 - sink (Simão) Nao mexi muito aqui, o que fizeste acho que esta certo
 - swim -> eleva o maximo que puder no amontoado (João)
 - delMax() (João V Simão)
+- Actualizar Javadoc, já está um pouco actualizado (João V Simão)
+- Relatorio (João V Simão)
 
 
 **nossos**
