@@ -40,34 +40,34 @@ public class FrequencyQueueRandomTest {
 			switch (rand.nextInt(6)) {
 			case 0:
 				String s = newString();
-				System.out.print ("add "+ s+ " ");
+				System.out.println("add "+ s+ " ");
 				queue.add(s);
 				break;
 				
 			case 1:
 				if (!queue.isEmpty()) 
-					System.out.print ("topFrequency "+queue.topFreq()+"  ");
+					System.out.println("topFrequency "+queue.topFreq()+"  ");
 				break;
 				
 			case 2:
 				if (!queue.isEmpty()) 
-					System.out.print ("topItem "+ queue.topItem()+"  ");
+					System.out.println("topItem "+ queue.topItem()+"  ");
 				break;
 
 			case 3:
 				if (!queue.isEmpty()) {
 					s = newString();
-					System.out.print ("sub "+ s +"  ");
+					System.out.println("sub "+ s +"  ");
 					queue.sub(s);
 				}
 				break;
 			
 			case 4:
-				System.out.print ("is empty? "+ queue.isEmpty() + " ");
+				System.out.println("is empty? "+ queue.isEmpty() + " ");
 				break;
 			
 			case 5:
-				System.out.print ("els "+ queue.els() + " ");
+				System.out.println("els "+ queue.els() + " ");
 				break;
 			}
 			System.out.println(queue);

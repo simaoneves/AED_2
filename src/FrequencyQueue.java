@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * The FrequencyQueue implemented with a max heap and a map. TOCOMPLETE
@@ -17,7 +18,6 @@ public class FrequencyQueue<E> implements Cloneable {
 		queue.add("b");
 		queue.add("c");
 		queue.add("d");
-		
 		queue.add("d");
 		
 		
@@ -86,14 +86,25 @@ public class FrequencyQueue<E> implements Cloneable {
 	 */
 	public void add(E item) {
 		if (this.map.containsKey(item)) {
-			Entry<E> entry = this.entries.get(this.map.get(item));
-			entry.frequency++;
+			this.entries.get(this.map.get(item)).frequency++;
 			reMap(item, swim(this.map.get(item)));
 			bag.add(item);
 		} else {
 			bag.add(item);
 			this.entries.add(new Entry<E>(item, 1));
 			this.map.put(item, swim(entries.size() - 1));
+		}
+	}
+	
+	private void reHash() {
+		this.map.clear();
+		Iterator<Entry<E>> iter = entries.iterator();
+		int i = 0;
+		while (iter.hasNext()) {
+			Entry<E> curr = iter.next();
+			System.out.println(curr);
+			this.map.put(curr.item, i);
+			i++;
 		}
 	}
 
@@ -110,7 +121,10 @@ public class FrequencyQueue<E> implements Cloneable {
 			int freq = this.entries.get(pos).frequency;
 			if (freq == 1) {
 				this.entries.remove(pos);
-				this.map.remove(item);
+				// TESTE, ACTUALIZAR MAPA
+				//this.map.remove(item);
+				reHash();
+				
 			} else {
 				this.entries.get(pos).frequency--;
 				if (hasToSink(pos))
