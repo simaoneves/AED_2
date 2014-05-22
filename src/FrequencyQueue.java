@@ -156,9 +156,9 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * auxiliary operation in specification FrequencyQueue not to be called by
 	 * clients or internally by other methods!
 	 */
-	public Bag<E> els() {
+	public Bag<E> els(FrequencyQueue<E> frequencyQueue) {
 		Bag<E> bagFinal = new Bag<E>();
-		for (Entry<E> currEntry : entries) {
+		for (Entry<E> currEntry : frequencyQueue.entries) {
 			int freq = currEntry.frequency;
 			E itemCurr = currEntry.item;
 			for (int i = 0; i < freq; i++) {

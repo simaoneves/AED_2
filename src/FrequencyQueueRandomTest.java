@@ -67,7 +67,7 @@ public class FrequencyQueueRandomTest {
 				break;
 			
 			case 5:
-				System.out.println("els "+ queue.els() + " ");
+				System.out.println("els "+ queue.els(queue) + " ");
 				break;
 			}
 			System.out.println(queue);
