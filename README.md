@@ -7,8 +7,7 @@ Projecto AED 2
 -------------
 
 **Por Fazer**
-- sub -> decrementa uma freqüência de certo item (João)
-- els -> devolve um bag com os elementos na queue (Simão) Acho que devemos ter so um metodo els a calcular o Bag, e nao termos o atributo Bag em que vamos adicionando, o que achas?
+- sub -> decrementa uma frequência de certo item (João)
 - sink (Simão) Nao mexi muito aqui, o que fizeste acho que esta certo
 - swim -> eleva o maximo que puder no amontoado (João)
 - delMax() (João V Simão)
@@ -23,7 +22,8 @@ Projecto AED 2
 
 **Enunciado**
 - topFreq -> maior frequencia em amontoado (Simão)
-- topItem -> item com maior frquencia no amontoado (Simão)
+- topItem -> item com maior frequencia no amontoado (Simão)
+- els -> devolve um bag com os elementos na queue (Simão)
 - maxChild(int parent) -> recorre a compare
 - sub(E item) (João) -> Iniciado c base em reheap
 - add(E item) (João) se adiciona se ainda nao existir, testado.

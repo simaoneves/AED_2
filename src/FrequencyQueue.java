@@ -20,7 +20,6 @@ public class FrequencyQueue<E> implements Cloneable {
 		queue.add("d");
 		queue.add("d");
 		
-		
 		System.out.println(queue);
 		
 	}
@@ -31,7 +30,6 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * @invariant forall e:entries | e.frequency > 0
 	 */
 	private ArrayList<Entry<E>> entries;
-	private Bag<E> bag;
 
 	/**
 	 * The Map that stores the positions in the heap of items in the queue.
@@ -48,7 +46,6 @@ public class FrequencyQueue<E> implements Cloneable {
 	 */
 	public FrequencyQueue() {
 		this.entries = new ArrayList<Entry<E>>();
-		this.bag = new Bag();
 		this.map = new HashMap<E, Integer>();
 	}
 
@@ -88,9 +85,7 @@ public class FrequencyQueue<E> implements Cloneable {
 		if (this.map.containsKey(item)) {
 			this.entries.get(this.map.get(item)).frequency++;
 			reMap(item, swim(this.map.get(item)));
-			bag.add(item);
 		} else {
-			bag.add(item);
 			this.entries.add(new Entry<E>(item, 1));
 			this.map.put(item, swim(entries.size() - 1));
 		}
@@ -102,7 +97,6 @@ public class FrequencyQueue<E> implements Cloneable {
 		int i = 0;
 		while (iter.hasNext()) {
 			Entry<E> curr = iter.next();
-			System.out.println(curr);
 			this.map.put(curr.item, i);
 			i++;
 		}
@@ -163,7 +157,15 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * clients or internally by other methods!
 	 */
 	public Bag<E> els() {
-		return this.bag;
+		Bag<E> bagFinal = new Bag<E>();
+		for (Entry<E> currEntry : entries) {
+			int freq = currEntry.frequency;
+			E itemCurr = currEntry.item;
+			for (int i = 0; i < freq; i++) {
+				bagFinal.add(itemCurr);
+			}
+		}
+		return bagFinal;
 	}
 
 	/**
@@ -186,6 +188,8 @@ public class FrequencyQueue<E> implements Cloneable {
 			swap(parent, maxChild);
 			parent = maxChild;
 			maxChild = maxChild(parent);
+			if (maxChild == -1)
+				break;
 			isLeaf = isLeaf(parent);
 		}
 	}
@@ -368,7 +372,7 @@ public class FrequencyQueue<E> implements Cloneable {
 //			result.append(copy.max() + " ");
 //			copy.delMax();
 //		}
-		return "FQ: " + entries.toString() + "\nMap: " + map.toString() + "\nBag: " + this.bag.toString();
+		return "FQ: " + entries.toString() + "\nMap: " + map.toString();
 		// OPTION2 more succinct
 		// return entries.toString();
 	}
