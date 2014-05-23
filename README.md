@@ -42,6 +42,6 @@ Vamos ter 20!
 ```java
 private void implementSexyCode() {
 	...
-	console.log("Sexy Code Implemented");
+	Systemout.println("Sexy Code Implemented");
 }
 ```
