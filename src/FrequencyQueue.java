@@ -1,34 +1,18 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
- * The FrequencyQueue implemented with a max heap and a map. TOCOMPLETE
+ * The FrequencyQueue implemented with a max heap and a map.
+ * Trabalho 2 - AED 2013/2014 - LEI - FCUL
  * 
  * @param <E>
  *            The type of elements in the queue
  * 
- * @author TOCOMPLETE
+ * @author Joao Rodrigues - fc45582
+ * @author Simao Neves - fc45681
+ * @author Grupo AED - aed041
  */
 public class FrequencyQueue<E> implements Cloneable {
-
-	public static void main(String[] args) {
-		FrequencyQueue<String> queue = new FrequencyQueue<String>();
-		queue.add("a");
-		queue.add("a");
-		queue.add("b");
-		queue.add("b");
-		queue.add("c");
-		queue.add("d");
-		queue.add("e");
-
-		
-		System.out.println(queue);
-		queue.delMax();
-		
-		System.out.println(queue);
-
-	}
 
 	/**
 	 * The ArrayList that stores the heap.
@@ -44,12 +28,6 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * @invariant forall 0 <= i < entries.size() | map(get(i).item)==i
 	 */
 	private HashMap<E, Integer> map;
-
-	private E get(int pos) {
-		return this.entries.get(pos).item;
-	}
-
-	// TOCOMPLETE
 
 	/**
 	 * Build an empty frequency queue.
@@ -108,9 +86,8 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * 			eh feita
 	 */
 	private void reHash(int pos) {
-		//para cada posicao seguinte decrementa no map
+		//para cada posicao seguinte a pos decrementa no map
 		for(int i = pos; i<entries.size(); i++){
-			System.out.println(entries.get(i).item +" Pos: "+i);
 			map.put(entries.get(i).item, i);
 		}
 	}
@@ -148,7 +125,11 @@ public class FrequencyQueue<E> implements Cloneable {
 	}
 
 	/**
-	 * Comparator
+	 * Comparador de posicoes de Entrys, com base na relação de ordem de frequencias
+	 * 
+	 * @param firstIndex Primeira posicao
+	 * @param secondIndex Segunda posicao
+	 * @return Devolve -1 se firstIndex for menor, 1 se for maior e 0 se as posicoes tiverem a mesma frequencia
 	 */
 	private int compare(int firstIndex, int secondIndex) {
 		Entry<E> first = entries.get(firstIndex);
@@ -165,10 +146,14 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * is the same than in the queue. IMPORTANT: this method implements
 	 * auxiliary operation in specification FrequencyQueue not to be called by
 	 * clients or internally by other methods!
+	 * 
+	 * @param frequencyQueue FrequencyQueue de onde se vao retirar os elementos para colocar no Bag retornado
+	 * @return Bag com os elementos todos da frequencyQueue, com a frequencia correspondente
+	 * @requires frequencyQueue != null
 	 */
-	public Bag<E> els(FrequencyQueue<E> frequencyQueue) {
+	public Bag<E> elements() {
 		Bag<E> bagFinal = new Bag<E>();
-		for (Entry<E> currEntry : frequencyQueue.entries) {
+		for (Entry<E> currEntry : entries) {
 			int freq = currEntry.frequency;
 			E itemCurr = currEntry.item;
 			//para cada freq de cur.item adiciona a bag
@@ -181,6 +166,9 @@ public class FrequencyQueue<E> implements Cloneable {
 
 	/**
 	 * Is a given node a leaf in the heap?
+	 * 
+	 * @param parent Index da posicao que vai ser avaliada
+	 * @return True se o node for leaf (nao tiver filhos), false caso contrario
 	 */
 	private boolean isLeaf(int parent) {
 		return ((parent * 2) + 1 > entries.size() - 1);
@@ -189,8 +177,8 @@ public class FrequencyQueue<E> implements Cloneable {
 	/**
 	 * Sink a changed node of the heap inorder to restore the heap.
 	 * 
-	 * @param node
-	 *            The changed node.
+	 * @param parent
+	 *            Index da posicao que vai ter de fazer sink no Amontoado
 	 */
 	private void sink(int parent) {
 		int maxChild = maxChild(parent);
@@ -219,8 +207,8 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * Make a changed node to swim in the direction of root inorder to restore
 	 * the heap.
 	 * 
-	 * @param node
-	 *            The changed node.
+	 * @param child
+	 *            Index da posicao que vai ter de fazer swim no Amontoado
 	 */
 	private int swim(int child) {
 		int parent = (child - 1) / 2;
@@ -235,8 +223,9 @@ public class FrequencyQueue<E> implements Cloneable {
 	/**
 	 * The index of the larger child of a node
 	 * 
-	 * @param node
-	 *            The node
+	 * @param parent
+	 *            Index da posicao na ArrayList de Entrys que vai ser usada para determinar o maior filho
+	 * @return Devolve a posicao do maior filho da posicao recebida, se nao tiver filhos devlve -1
 	 */
 	private int maxChild(int parent) {
 		// caso nao tenha filhos, devolve -1
@@ -287,8 +276,8 @@ public class FrequencyQueue<E> implements Cloneable {
 	/**
 	 * Verifica se a entry deve sinkar
 	 * 
-	 * @param parent
-	 * @return
+	 * @param parent Index da posicao na ArrayList de Entrys que vai ser avaliada
+	 * @return True se tiver que sinkar, false caso contrário
 	 */
 	private boolean hasToSink(int parent) {
 		boolean hasToSink = false;
@@ -299,6 +288,8 @@ public class FrequencyQueue<E> implements Cloneable {
 	}
 
 	/**
+	 * Retorna a Entry com maior frequencia no Amontoado
+	 * 
 	 * @return The entry with the highest frequency in the heap
 	 * @requires !isEmpty()
 	 */
@@ -316,7 +307,6 @@ public class FrequencyQueue<E> implements Cloneable {
 		
 		//se o tamanho da freq queue eh maior que 1
 		if (this.entries.size() > 1) {
-			
 			int last = this.entries.size() - 1;
 			Entry<E> min = this.entries.get(last);
 			
@@ -384,13 +374,6 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * The textual representation of this frequency queue.
 	 */
 	public String toString() {
-		// OPTION1 useful for debugging
-		// StringBuilder result = new StringBuilder("");
-		// FrequencyQueue<E> copy = this.clone();
-		// while (!copy.isEmpty()) {
-		// result.append(copy.max() + " ");
-		// copy.delMax();
-		// }
 		return "FQ: " + entries.toString() + "\nMap: " + map.toString();
 
 	}
@@ -403,22 +386,35 @@ public class FrequencyQueue<E> implements Cloneable {
 	 */
 	private static class Entry<E> implements Cloneable {
 
+		/**
+		 * O elemento a ser guardado
+		 */
 		private E item;
 
+		/**
+		 * A frequencia do elemento
+		 */
 		private int frequency;
 
 		/**
-		 * TOCOMPLETE
+		 * Constructor de uma Entry do elemento e com frequencia freq
 		 * 
 		 * @param e
-		 *            TOCOMPLETE
-		 * @requires TOCOMPLETE
+		 *            Elemento para ser guardado
+		 * @param freq
+		 *            Frequencia do elemento guardado
+		 * @requires freq >= 0 && e != null
 		 */
 		private Entry(E e, int freq) {
 			this.item = e;
 			this.frequency = freq;
 		}
 
+		/**
+		 * Representacao textual de uma Entry
+		 * 
+		 * @return Representacao textual de uma Entry
+		 */
 		public String toString() {
 			return "(" + item + ":" + frequency + ")";
 		}

@@ -1,26 +1,26 @@
-AED_2
+Projecto AED 2
 =====
 
-Projecto AED 2
-
-**Vamos ter 20!**
+Vamos ter 20!
 -------------
 
 **Por Fazer**
-- sub -> decrementa uma frequência de certo item (João)
-- sink (Simão) Nao mexi muito aqui, o que fizeste acho que esta certo
-- swim -> eleva o maximo que puder no amontoado (João)
-- delMax() (João V Simão)
-- Actualizar Javadoc, já está um pouco actualizado (João V Simão)
-- Relatorio (João V Simão)
 
-
-**nossos**
-- reheap() (João V Simão)
+- Fazer análise assintótica dos métodos (métodos não auxiliares não é preciso) (João)
+- Relatorio (Simão)
+- *Entregar até dia 25!*
 
 ------------------------------------------------------------------
 
-**Métodos Feitos**
+## **Já feito**
+
+- Implementação concluida
+- Optimização de código, aka SCI (Sexy Code Implemented)
+- Javadoc feito
+- Monitorização Congu concluida sem erros
+
+
+## **Métodos Feitos**
 
 **Enunciado**
 - topFreq -> maior frequencia em amontoado (Simão)
@@ -35,10 +35,13 @@ Projecto AED 2
 
 **Nossos**
 - compare(int firstIndex, int secondIndex) (João) - agora compara os indexes, o codigo fica mais legivel
-- reheap() -> iniciado. recorre ao swim (João)
 - swap(int child, int parent) -> feito, a actualizar em map e em entries
 
 **NOTA**
-- Alterei o toString da frequencyqueue para perceber melhor o que se passa, depois e preciso por como deve ser
-- Melhorar o delMax (nao precisa de se reestructurar o mapa porque e so para copias [see toString])
-- Retirei o Reheap do Sub por agora, se algum no tiver frequencia de 1 entao eh uma folha, entao eh logo removido e nao eh necessario fazer reheap
+
+```java
+private void implementSexyCode() {
+	...
+	console.log("Sexy Code Implemented");
+}
+```
