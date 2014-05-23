@@ -374,7 +374,7 @@ public class FrequencyQueue<E> implements Cloneable {
 	 * The textual representation of this frequency queue.
 	 */
 	public String toString() {
-		return "FQ: " + entries.toString() + "\nMap: " + map.toString();
+		return entries.toString();
 
 	}
 
